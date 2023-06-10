@@ -16,6 +16,10 @@ export function hello(): string {
   return ExpoInitialLinkModule.hello();
 }
 
+export function isActivatedByDeepLink(): boolean {
+  return ExpoInitialLinkModule.isActivatedByDeepLink();
+}
+
 export async function setValueAsync(value: string) {
   return await ExpoInitialLinkModule.setValueAsync(value);
 }

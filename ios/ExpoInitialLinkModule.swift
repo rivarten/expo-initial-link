@@ -23,6 +23,10 @@ public class ExpoInitialLinkModule: Module {
       return "Hello world! 👋"
     }
 
+    Function("isActivatedByDeepLink") {
+      return UserDefaults.standard.bool(forKey: "isActivatedByDeepLink")
+    }
+
     // Defines a JavaScript function that always returns a Promise and whose native code
     // is by default dispatched on the different thread than the JavaScript runtime runs on.
     AsyncFunction("setValueAsync") { (value: String) in
