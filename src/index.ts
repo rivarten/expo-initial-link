@@ -3,8 +3,7 @@ import { NativeModulesProxy, EventEmitter, Subscription } from 'expo-modules-cor
 // Import the native module. On web, it will be resolved to ExpoInitialLink.web.ts
 // and on native platforms to ExpoInitialLink.ts
 import ExpoInitialLinkModule from './ExpoInitialLinkModule';
-import ExpoInitialLinkView from './ExpoInitialLinkView';
-import { ChangeEventPayload, ExpoInitialLinkViewProps } from './ExpoInitialLink.types';
+import { ChangeEventPayload } from './ExpoInitialLink.types';
 
 // Get the native constant value.
 export const PI = ExpoInitialLinkModule.PI;
@@ -23,4 +22,4 @@ export function addChangeListener(listener: (event: ChangeEventPayload) => void)
   return emitter.addListener<ChangeEventPayload>('onChange', listener);
 }
 
-export { ExpoInitialLinkView, ExpoInitialLinkViewProps, ChangeEventPayload };
+export { ChangeEventPayload };
