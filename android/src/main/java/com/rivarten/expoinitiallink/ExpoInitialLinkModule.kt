@@ -35,4 +35,9 @@ class ExpoInitialLinkModule : Module() {
       ))
     }
   }
+
+  override fun createReactActivityLifecycleListeners(activityContext: Context): List<ReactActivityLifecycleListener> {
+    return listOf(MyLibReactActivityLifecycleListener())
+  }
+
 }
