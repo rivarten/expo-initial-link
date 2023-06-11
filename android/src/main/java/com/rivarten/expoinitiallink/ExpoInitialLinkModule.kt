@@ -2,8 +2,13 @@ package com.rivarten.expoinitiallink
 
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
+import expo.modules.core.interfaces.Package
+import android.content.SharedPreferences
+import android.content.Context
+import expo.modules.core.interfaces.ReactActivityLifecycleListener
+import com.rivarten.expoinitiallink.AppReactActivityLifecycleListener
 
-class ExpoInitialLinkModule : Module() {
+class ExpoInitialLinkModule : Module(),Package {
   // Each module class must implement the definition function. The definition consists of components
   // that describes the module's functionality and behavior.
   // See https://docs.expo.dev/modules/module-api for more details about available components.
@@ -13,35 +18,21 @@ class ExpoInitialLinkModule : Module() {
     // The module will be accessible from `requireNativeModule('ExpoInitialLink')` in JavaScript.
     Name("ExpoInitialLink")
 
-    // Sets constant properties on the module. Can take a dictionary or a closure that returns a dictionary.
-    Constants(
-      "PI" to Math.PI
-    )
-
-    // Defines event names that the module can send to JavaScript.
-    Events("onChange")
-
-    // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
-    Function("hello") {
-      "Hello world! 👋"
+    Function("isActivatedByDeepLink") {
+      return@Function getPreferences().getBoolean("isActivatedByDeepLink", false)
     }
 
-    // Defines a JavaScript function that always returns a Promise and whose native code
-    // is by default dispatched on the different thread than the JavaScript runtime runs on.
-    AsyncFunction("setValueAsync") { value: String ->
-      // Send an event to JavaScript.
-      sendEvent("onChange", mapOf(
-        "value" to value
-      ))
-    }
-
-    // Enables the module to be used as a native view. Definition components that are accepted as part of
-    // the view definition: Prop, Events.
-    View(ExpoInitialLinkView::class) {
-      // Defines a setter for the `name` prop.
-      Prop("name") { view: ExpoInitialLinkView, prop: String ->
-        println(prop)
-      }
-    }
   }
+
+  private val context
+  get() = requireNotNull(appContext.reactContext)
+
+  private fun getPreferences(): SharedPreferences {
+    return context.getSharedPreferences(context.packageName + ".settings", Context.MODE_PRIVATE)
+  }
+
+  override fun createReactActivityLifecycleListeners(activityContext: Context): List<ReactActivityLifecycleListener> {
+    return listOf(AppReactActivityLifecycleListener())
+  }
+
 }
