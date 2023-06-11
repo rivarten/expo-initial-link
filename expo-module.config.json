@@ -1,7 +1,8 @@
 {
   "platforms": ["ios", "android", "web"],
   "ios": {
-    "modules": ["ExpoInitialLinkModule"]
+    "modules": ["ExpoInitialLinkModule"],
+    "appDelegateSubscribers": ["AppLifecycleDelegate"]
   },
   "android": {
     "modules": ["com.rivarten.expoinitiallink.ExpoInitialLinkModule"]
