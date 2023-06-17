@@ -5,10 +5,9 @@ import expo.modules.kotlin.modules.ModuleDefinition
 import expo.modules.core.interfaces.Package
 import android.content.SharedPreferences
 import android.content.Context
-import expo.modules.core.interfaces.ReactActivityLifecycleListener
-import com.rivarten.expoinitiallink.AppReactActivityLifecycleListener
+import com.rivarten.expoinitiallink.AppLifecycleListenerPackage
 
-class ExpoInitialLinkModule : Module(),Package {
+class ExpoInitialLinkModule : Module() {
   // Each module class must implement the definition function. The definition consists of components
   // that describes the module's functionality and behavior.
   // See https://docs.expo.dev/modules/module-api for more details about available components.
@@ -22,17 +21,17 @@ class ExpoInitialLinkModule : Module(),Package {
       return@Function getPreferences().getBoolean("isActivatedByDeepLink", false)
     }
 
+    Function("getInitialLink") {
+      return@Function getPreferences().getString("appLinkUri", "")
+    }
+
   }
 
   private val context
   get() = requireNotNull(appContext.reactContext)
 
   private fun getPreferences(): SharedPreferences {
-    return context.getSharedPreferences(context.packageName + ".settings", Context.MODE_PRIVATE)
-  }
-
-  override fun createReactActivityLifecycleListeners(activityContext: Context): List<ReactActivityLifecycleListener> {
-    return listOf(AppReactActivityLifecycleListener())
+    return context.getSharedPreferences(context.packageName + ".applinks", Context.MODE_PRIVATE)
   }
 
 }

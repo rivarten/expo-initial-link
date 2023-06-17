@@ -5,8 +5,8 @@ import * as ExpoInitialLink from 'expo-initial-link';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>{ExpoInitialLink.isActivatedByDeepLink() ? "true" : "false" }</Text>
-      <Text>{ExpoInitialLink.hello()}</Text>
+      <Text>{`${ExpoInitialLink.isActivatedByDeepLink()}`}</Text>
+      <Text>{ExpoInitialLink.getInitialLink()}</Text>
     </View>
   );
 }

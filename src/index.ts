@@ -5,3 +5,7 @@ import ExpoInitialLinkModule from "./ExpoInitialLinkModule";
 export function isActivatedByDeepLink(): boolean {
   return ExpoInitialLinkModule.isActivatedByDeepLink();
 }
+
+export function getInitialLink(): string {
+  return ExpoInitialLinkModule.getInitialLink();
+}
